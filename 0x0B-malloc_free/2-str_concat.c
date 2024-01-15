@@ -1,39 +1,42 @@
 #include "main.h"
+#include <stdlib.h>
 
 /**
- * _memset - copy char
- * @s: string
- * @b: input
- * @n: bytes
- * Return: string
+ * str_concat - to concatenate two strings.
+ * @s1: first string.
+ * @s2: second string.
+ *
+ * Return: pointer of an array of chars.
  */
-char *_memset(char *s, char b, unsigned int n)
+char *str_concat(char *s1, char *s2)
 {
-	unsigned int i;
+	char *strout;
+	unsigned int i, j, k, limit;
 
-	for (i = 0; i < n; i++)
+	if (s1 == NULL)
+		s1 = "";
+	if (s2 == NULL)
+		s2 = "";
+
+	for (i = 0; s1[i] != '\0'; i++)
+		;
+
+	for (j = 0; s2[j] != '\0'; j++)
+		;
+
+	strout = malloc(sizeof(char) * (i + j + 1));
+
+	if (strout == NULL)
 	{
-		s[i] = b;
+		free(strout);
+		return (NULL);
 	}
-	return (s);
-}
 
-/**
- * _calloc - allocates memory for an array using malloc
- * @nmemb: n elements
- * @size: bytes
- * Return: pointer
- */
-void *_calloc(unsigned int nmemb, unsigned int size)
-{
-	void *p;
+	for (k = 0; k < i; k++)
+		strout[k] = s1[k];
 
-	if (nmemb == 0 || size == 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-
-	if (p == NULL)
-		return (NULL);
-	_memset(p, 0, (nmemb * size));
-	return (p);
+	limit = j;
+	for (j = 0; j <= limit; k++, j++)
+		strout[k] = s2[j];
+	return (strout);
 }
